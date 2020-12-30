@@ -14,17 +14,19 @@
     <script>
         let canvas = document.querySelector("canvas");
         let ctx = canvas.getContext("2d");
-
+        let x = 200;
         canvas.width = 720;
         canvas.height = 480;
-        desenha()
+        requestAnimationFrame(desenha)
         function desenha(){
-        ctx.fillStyle = "black";
-        ctx.fillRect(10,30,canvas.width,canvas.height)
+            ctx.fillStyle = "black";
+            ctx.fillRect(10,30,canvas.width,canvas.height)
 
 
-        ctx.fillStyle = "white";
-        ctx.fillRect(100,150, 20, 20)
+            ctx.fillStyle = "white";
+            ctx.fillRect(x,150,20, 20)
+            x = x+1;
+            requestAnimationFrame(desenha)
         }
     </script>
 </body>
