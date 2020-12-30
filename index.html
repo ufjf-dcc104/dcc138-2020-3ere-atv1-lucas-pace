@@ -14,10 +14,18 @@
     <script>
         let canvas = document.querySelector("canvas");
         let ctx = canvas.getContext("2d");
-        let x = 200;
+        let x ;
+        let y ;
         let t;
         let t0;
         let dt;
+        let r = 200;
+
+        let cx = 330;
+        var cy = 200;
+        var dd = 3;
+        var angle = 0;
+        var radius = 40;
         canvas.width = 720;
         canvas.height = 480;
         requestAnimationFrame(desenha)
@@ -27,10 +35,13 @@
             ctx.fillStyle = "black";
             ctx.fillRect(10,30,canvas.width,canvas.height)
 
+           
+            angle += Math.acos(1-Math.pow(dd/radius,2)/2);
+            x = cx + radius * Math.cos(angle)
+            y  = cy + radius * Math.sin(angle);
 
             ctx.fillStyle = "white";
-            ctx.fillRect(x,150,20, 20)
-            x = x+100*dt;
+            ctx.fillRect(x, y , 50, 30)
             requestAnimationFrame(desenha)
             t0 = t;
         }
