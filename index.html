@@ -15,10 +15,15 @@
         let canvas = document.querySelector("canvas");
         let ctx = canvas.getContext("2d");
         let x = 200;
+        let t;
+        let t0;
+        let dt;
         canvas.width = 720;
         canvas.height = 480;
         requestAnimationFrame(desenha)
-        function desenha(){
+        function desenha(t){
+            t0 = t0 ?? t
+            dt = (t - t0)/10000
             ctx.fillStyle = "black";
             ctx.fillRect(10,30,canvas.width,canvas.height)
 
@@ -27,6 +32,7 @@
             ctx.fillRect(x,150,20, 20)
             x = x+1;
             requestAnimationFrame(desenha)
+            t0 = t;
         }
     </script>
 </body>
