@@ -23,15 +23,24 @@
             y: 100,
             ax: 0,
             ay: 0,
+            desenha: function () {
+                ctx.fillStyle = "white";
+                ctx.fillRect(this.x, this.y, 30, 30)
+            }
         }
 
         let e = {
-            ex : 100,
-            evx : 0,
-            evy : 0,
-            ey : 100,
-            eax : 0,
-            eay : 0,
+            ex: 100,
+            evx: 0,
+            evy: 0,
+            ey: 100,
+            eax: 0,
+            eay: 0,
+            desenha: function () {
+                ctx.fillStyle = "red";
+                ctx.fillRect(this.ex, this.ey, 30, 30)
+
+            }
         }
 
 
@@ -75,11 +84,9 @@
 
 
             //objetos
-            ctx.fillStyle = "white";
-            ctx.fillRect(p.x, p.y, 30, 30)
+            p.desenha();
+            e.desenha();
 
-            ctx.fillStyle = "red";
-            ctx.fillRect(e.ex, e.ey, 30, 30)
 
 
 
