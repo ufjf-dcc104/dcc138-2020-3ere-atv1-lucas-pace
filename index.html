@@ -37,7 +37,9 @@
             ay: 0,
             color: "red",
             mover: moverElemento,
-            desenha: desenhaElemento
+            desenha: desenhaElemento,
+            controlar: evitarAlvo
+        
         }
 
 
@@ -63,8 +65,9 @@
             ctx.fillRect(10, 30, canvas.width, canvas.height)
 
             //controladores
-            e.ay = 0.5 * (p.y - e.y) - 0.2 * e.vx;
-            e.ax = 0.5 * (p.x - e.x) - 0.2 * e.vy;
+
+            e.controlar(p)
+
 
             //dinamica estados
             p.mover();
@@ -114,6 +117,16 @@
         function desenhaElemento() {
             ctx.fillStyle = this.color;
             ctx.fillRect(this.x, this.y, 30, 30)
+        }
+
+        function perseguirAlvo(alvo) {
+            this.ay = 0.5 * (alvo.y - this.y) - 0.2 * this.vx;
+            this.ax = 0.5 * (alvo.x - this.x) - 0.2 * this.vy;
+        }
+
+        function evitarAlvo(alvo) {
+            this.ay = -0.5 * (alvo.y - this.y) - 0.2 * this.vx;
+            this.ax = -0.5 * (alvo.x - this.x) - 0.2 * this.vy;
         }
     </script>
 </body>
