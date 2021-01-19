@@ -24,12 +24,16 @@
             ax: 0,
             ay: 0,
         }
-        let ex = 100;
-        let evx = 0;
-        let evy = 0;
-        let ey = 100;
-        let eax = 0;
-        let eay = 0;
+
+        let e = {
+            ex : 100,
+            evx : 0,
+            evy : 0,
+            ey : 100,
+            eax : 0,
+            eay : 0,
+        }
+
 
 
         let t;
@@ -53,8 +57,8 @@
             ctx.fillRect(10, 30, canvas.width, canvas.height)
 
             //controladores
-            eay = 0.5 * (p.y - ey) - 0.2 * evx;
-            eax = 0.5 * (p.x - ex) - 0.2 * evy;
+            e.eay = 0.5 * (p.y - e.ey) - 0.2 * e.evx;
+            e.eax = 0.5 * (p.x - e.ex) - 0.2 * e.evy;
 
             //dinamica estados
             p.vx = p.vx + p.ax * dt;
@@ -63,11 +67,11 @@
             p.x = p.x + p.vx * dt;
             p.y = p.y + p.vy * dt;
 
-            evx = evx + eax * dt;
-            evy = evy + eay * dt;
+            e.evx = e.evx + e.eax * dt;
+            e.evy = e.evy + e.eay * dt;
 
-            ex = ex + evx * dt;
-            ey = ey + evy * dt;
+            e.ex = e.ex + e.evx * dt;
+            e.ey = e.ey + e.evy * dt;
 
 
             //objetos
@@ -75,7 +79,7 @@
             ctx.fillRect(p.x, p.y, 30, 30)
 
             ctx.fillStyle = "red";
-            ctx.fillRect(ex, ey, 30, 30)
+            ctx.fillRect(e.ex, e.ey, 30, 30)
 
 
 
