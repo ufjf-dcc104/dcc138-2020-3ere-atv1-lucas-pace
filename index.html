@@ -43,12 +43,22 @@
         }
 
         addEventListener("keydown", teclaPressionada);
+        addEventListener("keyup", teclaSolta);
         function teclaPressionada(e) {
             switch (e.key) {
                 case "ArrowUp": vy = -200; break;
-                case "ArrowDown": vy = 200;  break;
+                case "ArrowDown": vy = 200; break;
                 case "ArrowRight": vx = 200; break;
-                case "ArrowLeft": vx = -200;  break;
+                case "ArrowLeft": vx = -200; break;
+            }
+        }
+
+        function teclaSolta(e) {
+            switch (e.key) {
+                case "ArrowUp": vy = 0; break;
+                case "ArrowDown": vy = 0; break;
+                case "ArrowRight": vx = 0; break;
+                case "ArrowLeft": vx = 0; break;
             }
         }
     </script>
