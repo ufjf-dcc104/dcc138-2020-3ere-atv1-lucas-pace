@@ -14,13 +14,14 @@
     <p>Lucas de Pace</p>
 
     <script>
-            const sprites = [];
+        const sprites = [];
         let canvas = document.querySelector("canvas");
         let ctx = canvas.getContext("2d");
-        canvas.width = 720;
-        canvas.height = 480;
+        canvas.width = 480;
+        canvas.height = 320;
+        let pontos = 0;
 
-        
+
         let p = {
             x: 100,
             vx: 0,
@@ -44,8 +45,8 @@
             color: "blue",
             mover: moverElemento,
             desenha: desenhaElemento,
-            controlar: function (){
-                if(this.x > canvas.width + 50){
+            controlar: function () {
+                if (this.x > canvas.width + 50) {
                     this.x = -100;
                     this.ax = 0;
                     this.vx = 0;
@@ -58,10 +59,10 @@
 
 
         console.log(canvas.width)
-        const nSprites = 30;
+        const nSprites = 200;
         for (var i = 0; i < nSprites; i++) {
             let e = {
-                x: canvas.width * ( 1 + 10* Math.random()),
+                x: canvas.width * (1 + 10 * Math.random()),
                 vx: 0,
                 vy: -20,
                 y: canvas.height * Math.random(),
@@ -108,10 +109,32 @@
             p.desenha();
 
             for (var i = 0; i < nSprites; i++) {
-                sprites[i].controlar?.(p);
-                sprites[i].mover();
-                sprites[i].desenha();
+                const sprite = sprites[i];
+                sprite.controlar?.(p);
+                sprite.mover();
+                sprite.desenha();
+
+                if (colidiram(o, sprite) && o !== sprite) {
+                    o.x = -1000;
+                    o.y = -1000;
+                    o.vx = 0;
+                    o.ax = 0;
+                    sprite.x = 1000;
+                    sprite.vx = 100;
+                    sprite.ax = 0;
+                    pontos++;
+                }
+
+                if (colidiram(p, sprite) && o !== sprite) {
+                    sprite.x = 1000;
+                    sprite.vx = 100;
+                    sprite.ax = 0;
+                    pontos -= 3;
+                }
             }
+            ctx.fillStyle = "yellow";
+            ctx.font = "20px Impact"
+            ctx.fillText(pontos, 10,30)
 
 
             //objetos
@@ -141,7 +164,7 @@
                 case "ArrowDown": p.vy = 0; p.ay = 0; break;
                 case "ArrowRight": p.vx = 0; p.ax = 0; break;
                 case "ArrowLeft": p.vx = 0; p.ax = 0; break;
-                case " ": o.x = p.x; o.y = p.y ; o.vx = 0; o.ax = 200; break;
+                case " ": o.x = p.x; o.y = p.y; o.vx = 0; o.ax = 200; break;
             }
         }
 
@@ -156,7 +179,7 @@
 
         function desenhaElemento() {
             ctx.fillStyle = this.color;
-            ctx.fillRect(this.x, this.y, 30, 30)
+            ctx.fillRect(this.x, this.y, 20, 20)
         }
 
         function perseguirAlvo(alvo) {
@@ -167,6 +190,11 @@
         function evitarAlvo(alvo) {
             this.ay = -0.5 * (alvo.y - this.y) - 0.2 * this.vx;
             this.ax = -0.5 * (alvo.x - this.x) - 0.2 * this.vy;
+        }
+
+        function colidiram(A, B) {
+            return !(A.x > B.x + 20 || A.x + 20 < B.x || A.y > B.y + 20 || A.y + 20 < B.y);
+
         }
     </script>
 </body>
