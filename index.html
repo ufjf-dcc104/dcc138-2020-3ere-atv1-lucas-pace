@@ -28,19 +28,27 @@
             desenha: desenhaElemento
         }
 
-        let e = {
-            x: 100,
-            vx: 0,
-            vy: 0,
-            y: 100,
-            ax: 0,
-            ay: 0,
-            color: "red",
-            mover: moverElemento,
-            desenha: desenhaElemento,
-            controlar: evitarAlvo
-        
+
+
+        const sprites = [];
+        const nSprites = 2;
+        for (var i  = 0; i < nSprites; i++) {
+            let e = {
+                x: 100 + 50*i,
+                vx: 0,
+                vy: 0,
+                y: 100,
+                ax: 0,
+                ay: 0,
+                color: "red",
+                mover: moverElemento,
+                desenha: desenhaElemento,
+                controlar: perseguirAlvo
+
+            }
+            sprites.push(e);
         }
+
 
 
 
@@ -66,17 +74,22 @@
 
             //controladores
 
-            e.controlar(p)
 
 
             //dinamica estados
             p.mover();
-            e.mover();
+
+            p.desenha();
+
+            for ( var i = 0 ; i < nSprites; i++) {
+                sprites[i].controlar(p);
+                sprites[i].mover();
+                sprites[i].desenha();
+            }
 
 
             //objetos
-            p.desenha();
-            e.desenha();
+
 
 
 
@@ -120,7 +133,7 @@
         }
 
         function perseguirAlvo(alvo) {
-            this.ay = 0.5 * (alvo.y - this.y) - 0.2 * this.vx;
+            this.ay = 0.5 * (alvo.y - this.y) - 0.2 * this.vx ;
             this.ax = 0.5 * (alvo.x - this.x) - 0.2 * this.vy;
         }
 
