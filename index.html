@@ -28,6 +28,8 @@
             vy: 0,
             y: 100,
             ax: 0,
+            w: 20,
+            h: 20,
             ay: 0,
             color: "white",
             mover: moverElemento,
@@ -41,6 +43,8 @@
             vx: 0,
             vy: 0,
             ax: 0,
+            w: 15,
+            h: 15,
             ay: 0,
             color: "blue",
             mover: moverElemento,
@@ -57,8 +61,6 @@
         sprites.push(o);
 
 
-
-        console.log(canvas.width)
         const nSprites = 200;
         for (var i = 0; i < nSprites; i++) {
             let e = {
@@ -68,6 +70,8 @@
                 y: canvas.height * Math.random(),
                 ax: 15,
                 ay: 0,
+                w: 5,
+                h: 5,
                 color: "red",
                 mover: moverElemento,
                 desenha: desenhaElemento,
@@ -103,10 +107,7 @@
 
 
 
-            //dinamica estados
-            p.mover();
 
-            p.desenha();
 
             for (var i = 0; i < nSprites; i++) {
                 const sprite = sprites[i];
@@ -134,12 +135,13 @@
             }
             ctx.fillStyle = "yellow";
             ctx.font = "20px Impact"
-            ctx.fillText(pontos, 10,30)
+            ctx.fillText(pontos, 10, 30)
 
 
-            //objetos
+            //dinamica estados
+            p.mover();
 
-
+            p.desenha();
 
 
 
@@ -179,7 +181,7 @@
 
         function desenhaElemento() {
             ctx.fillStyle = this.color;
-            ctx.fillRect(this.x, this.y, 20, 20)
+            ctx.fillRect(this.x, this.y, this.w, this.h)
         }
 
         function perseguirAlvo(alvo) {
@@ -193,7 +195,7 @@
         }
 
         function colidiram(A, B) {
-            return !(A.x > B.x + 20 || A.x + 20 < B.x || A.y > B.y + 20 || A.y + 20 < B.y);
+            return !(A.x > B.x + B.w || A.x + A.w < B.x || A.y > B.y + B.h || A.y + A.h < B.y);
 
         }
     </script>
